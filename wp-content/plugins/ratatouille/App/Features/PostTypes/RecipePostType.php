@@ -10,13 +10,16 @@ namespace App\Features\PostTypes;
 
 class RecipePostType
 {
+  // On créer une variable qu'on appel 'slug' on la rend public et static pour pouvoir s'en servir dans les functions de la class RecipePostType et en dehors.
+  public static $slug = 'recipe';
   public static function register()
   {
     // info sur la fonction https://developer.wordpress.org/reference/functions/register_post_type/
     register_post_type(
-      'recipe', 
+      // on remplace le slug qui était écrit en dur 'recipe' par la variable, on fait cela car on va fair appel à notre function register_post_type par son indentifiant à plusieurs endroits, si jamais on décide de changer l'identifiant qui est 'recipe' par 'carotte' bah il faudra le changer a de nombreux endroit si on laisse cela en dur c'est pour cela qu'on à choisis de créer une variable,on change la valeur de la variable est tous les endroits ou son identifiant est utilisé sera mis à jours.
+      self::$slug, 
       [
-        // labels contient un tableau avec plein de paramètre par defaut en anglais comme : Add Post, Edit Post etc, on fait référence aux clefs et on y introduit une nouvelle valeur en français pour que dans notre back office on ait les messages en français. Vous pouvez aller verifier en allant sur une de vos recettes et en allant sur la page de modification de cette recette, vous pourrez constater que le titre sera : Modifier la recette
+        
         'labels' => [
           'name' => __('Recettes'),
           'singular_name' => __('Recette'),
@@ -44,7 +47,8 @@ class RecipePostType
         'public' => true,
         'has_archive' => true,
         'rewrite' => [
-          'slug' => 'recette'
+          'slug' => 'recette',
+        
         ]
       ]
     );
