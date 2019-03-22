@@ -48,8 +48,10 @@ class RecipePostType
         'has_archive' => true,
         'rewrite' => [
           'slug' => 'recette',
-        
-        ]
+        ],
+        // Rajout d'un icon à coté de notre lien 'Recette' dans notre menu, par défaut on à une epingle, je l'ai changée pour un bouquin. La liste des icones peut être retrouvé sur :
+        // https://developer.wordpress.org/resource/dashicons/#admin-tools
+        'menu_icon' => 'dashicons-book'
       ]
     );
 
