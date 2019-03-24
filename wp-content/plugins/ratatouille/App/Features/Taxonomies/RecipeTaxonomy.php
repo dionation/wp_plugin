@@ -17,6 +17,16 @@ class RecipeTaxonomy {
    * @return void
    */
   public static function register(){
-    register_taxonomy(self::$slug, [RecipePostType::$slug],'');
+    
+    $labels = [ // Rajouts des labels
+      'name' => __('Type de recettes'),
+      'singular_name' => __('Type de recette'),
+    ];
+    $args = [ // Rajout d'arguments
+      'labels' => $labels,
+    ];
+    
+    // J'ai créer un tableau ou j'ai mis deux labels, en suit dans les $args j'ai utilisé un seul paramètre c'est 'labels' au quel j'ai donné la valeur $labels, j'ai fini par passé $args en troisème paramètre à la fonction register_taxonomy,vous pouvez aller observer les changements.
+    register_taxonomy(self::$slug, [RecipePostType::$slug],$args);
   }
 }
