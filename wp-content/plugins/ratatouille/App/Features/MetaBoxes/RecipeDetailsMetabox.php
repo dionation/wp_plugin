@@ -30,7 +30,7 @@ class RecipeDetailsMetabox
     // Récupération de toutes les metadata du post
     // https://developer.wordpress.org/reference/functions/get_post_meta/
     $data = get_post_meta(get_the_ID());
-    $time = $data['rat_time_preparation'][0];
+    $time = extract_data_attr('rat_time_preparation',$data);
     
     // Ancienne façon : view('metaboxes/recipe-detail',['time_choisi' => $time]);
     // Nouvelle façon de passer les données, avec l'aide de la function compact()
