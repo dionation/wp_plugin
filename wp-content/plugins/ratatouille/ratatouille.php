@@ -20,7 +20,8 @@ use App\Features\MetaBoxes\RecipeDetailsMetabox;
 // Your code starts here.
 // on require_once le fichier autload.php qui lui fera un require_once pour toutes les class qui ont besoin d'être chargées.
 require_once('autoload.php');
-
+// J'inclus le fichier env
+require_once('env.php');
 add_action('init',[RecipePostType::class, 'register']);
 
 add_action('init', [RecipeTaxonomy::class, 'register']);
