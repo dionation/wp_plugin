@@ -27,15 +27,13 @@ class RecipeDetailsMetabox
    */
   public static function render()
   {
- // Récupération de toutes les metadata du post
+    // Récupération de toutes les metadata du post
     // https://developer.wordpress.org/reference/functions/get_post_meta/
     $data = get_post_meta(get_the_ID());
-
-    // Etant donné que $data est un tableau de donné contenant toutes les metadatas possible on doit préciser qu'on veut celle dont l'index est 0, nous avons qu'une seule metadata de stocké mais la récupération ce fait quand même via un tableau.
     $time = $data['rat_time_preparation'][0];
     
-    // Pour le moment nous ne faisons rien de la donnée que nous avons récupérée,vous pouvez analyser les variables $data et $time avec votre débuguer,nous verrons comment envoyé cette donné dans la page pour la voir être affichée au prochain commit.
-    view('metaboxes/recipe-detail');
+    // Dans notre helpers.php à notre helper view on a rajouter une variable qui par défaut vaut un tableau vide, ca veux dire que maintenant que notre helper à un second paramètre on sen sert pour passer notre tableau ['time_choisi' => $time], le premier 'time_choisi' est la cléf qu'on à décidé d'appeler comme ça, le second $time est la valeur qu'on a stocké plus haut, on a donc associé une valeur a une clef est on a envoyé ce tableau dans notre view recipe-detail.
+    view('metaboxes/recipe-detail',['time_choisi' => $time]);
   }
 
   /**
