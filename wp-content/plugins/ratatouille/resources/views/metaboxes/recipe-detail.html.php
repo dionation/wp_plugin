@@ -3,11 +3,11 @@
     <th><?php _e("Temps de préparation"); ?></th>
     <td>
       <select name="rat_time_preparation" id="rat_time_preparation">
-       <!-- On passe notre clef de $time_choisi à $time car on utilise une function compact dans RecipeDetailsMetabox qui elle génère une clef du même nom que la variable passée. -->
-        <option value="<?php echo $time ?>"><?php echo $time ?></option>
-        <option value="10-15">de 10 à 15min</option>
-        <option value="15-30">de 15 à 30min</option>
-        <option value="30-45">de 30 à 45min</option>
+       <!-- On fait en sorte que l'option soit sélectionnée en fonction de la valeur récupérée dans la db. -->
+        <option value="">--</option>
+        <option <?php echo $time == '10-15' ? 'selected' : '' ?> value="10-15">de 10 à 15min</option>
+        <option <?php echo $time == '15-30' ? 'selected' : '' ?> value="15-30">de 15 à 30min</option>
+        <option <?php echo $time == '30-45' ? 'selected' : '' ?> value="30-45">de 30 à 45min</option>
       </select>
     </td>
   </tr>
