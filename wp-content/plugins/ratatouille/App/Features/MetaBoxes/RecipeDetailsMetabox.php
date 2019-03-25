@@ -27,7 +27,14 @@ class RecipeDetailsMetabox
    */
   public static function render()
   {
-    // Je fais appel à ma function view($path) dans la quelle je rempli le paramètre avec le nom du fichier et son dossier parent, avant on avait    include(RAT_VIEW_DIR .'metaboxes/recipe-detail.html.php');
+ // Récupération de toutes les metadata du post
+    // https://developer.wordpress.org/reference/functions/get_post_meta/
+    $data = get_post_meta(get_the_ID());
+
+    // Etant donné que $data est un tableau de donné contenant toutes les metadatas possible on doit préciser qu'on veut celle dont l'index est 0, nous avons qu'une seule metadata de stocké mais la récupération ce fait quand même via un tableau.
+    $time = $data['rat_time_preparation'][0];
+    
+    // Pour le moment nous ne faisons rien de la donnée que nous avons récupérée,vous pouvez analyser les variables $data et $time avec votre débuguer,nous verrons comment envoyé cette donné dans la page pour la voir être affichée au prochain commit.
     view('metaboxes/recipe-detail');
   }
 
@@ -50,7 +57,7 @@ class RecipeDetailsMetabox
       // on ajoute sanitize pour sécurizer les valeurs receuilli par l'utilisateur
       // https://developer.wordpress.org/themes/theme-security/data-sanitization-escaping/
       $time_preparation = sanitize_text_field($_POST['rat_time_preparation']);   
-      
+
       // On rajout la valeur stocké dans $time_preparation dans la base de donnée avec comme clef 'rat_time_preparation' ca veux dire que par exemple si la valeur rentré et '15-30' on retrouvera cette valeur 15-30 avec comme étiquette 'rat_time_preparation'
       // https://developer.wordpress.org/reference/functions/update_post_meta/
       update_post_meta($post_id, 'rat_time_preparation', $time_preparation);
