@@ -27,7 +27,8 @@ class RecipeDetailsMetabox
    */
   public static function render()
   {
-  // J'inclus le fichier recipe-detail.html.php en me servant de la variable global qui vaut tout le chemin jusqu'au dossier views, je complète le chemin jusqu'au fichier.
-   include(RAT_VIEW_DIR .'metaboxes/recipe-detail.html.php');
+    // Je fais appel à ma function view($path) dans la quelle je rempli le paramètre avec le nom du fichier et son dossier parent, avant on avait    include(RAT_VIEW_DIR .'metaboxes/recipe-detail.html.php');
+    view('metaboxes/recipe-detail');
+
   }
 } 

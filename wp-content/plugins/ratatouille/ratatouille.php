@@ -22,6 +22,9 @@ use App\Features\MetaBoxes\RecipeDetailsMetabox;
 require_once('autoload.php');
 // J'inclus le fichier env
 require_once('env.php');
+// J'inclus le fichier helpers.php
+require_once('helpers.php');
+
 add_action('init',[RecipePostType::class, 'register']);
 
 add_action('init', [RecipeTaxonomy::class, 'register']);
