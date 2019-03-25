@@ -27,6 +27,12 @@ class RecipeDetailsMetabox
    */
   public static function render()
   {
-    echo "<h3>Hello</h3>";
+    // chemin jusqu'au dossier dans le quel on est,cela retourne /home/utilisateur/Bureau/dossier-du-projet,pour ma part j'ai obtenu :
+    // /home/benefit/Bureau/training/wppluginpractice
+    $path_racine = $_SERVER["DOCUMENT_ROOT"];
+    // Vous pouvez faire un echo si vous le désirez
+    // echo $path_racine;
+    // A ceci je concatène le reste du chemin jusqu'a arrivé dans le fichier recipe-detail-html
+    include($path_racine . '/wp-content/plugins/ratatouille/resources/views/metaboxes/recipe-detail.html.php');
   }
 } 
