@@ -32,8 +32,10 @@ class RecipeDetailsMetabox
     $data = get_post_meta(get_the_ID());
     $time = $data['rat_time_preparation'][0];
     
-    // Dans notre helpers.php à notre helper view on a rajouter une variable qui par défaut vaut un tableau vide, ca veux dire que maintenant que notre helper à un second paramètre on sen sert pour passer notre tableau ['time_choisi' => $time], le premier 'time_choisi' est la cléf qu'on à décidé d'appeler comme ça, le second $time est la valeur qu'on a stocké plus haut, on a donc associé une valeur a une clef est on a envoyé ce tableau dans notre view recipe-detail.
-    view('metaboxes/recipe-detail',['time_choisi' => $time]);
+    // Ancienne façon : view('metaboxes/recipe-detail',['time_choisi' => $time]);
+    // Nouvelle façon de passer les données, avec l'aide de la function compact()
+    // La function compact créer un tableau ou elle met en clef le nom de la variable qu'on lui passe,on lui passe cette variable d'une manière assez particulière car on lui retire le '$' et qu'en plus on la met entre guillemet. En lui passant de cette manière elle créer donc un tableau avec comme clef et valeur le meme nom ce qui donne en soit : ['time' => $time] ca veux dire également qu'on doit aller changer dans recipe-detail.html.php le nom de la clef a la quelle on fait appel.
+    view('metaboxes/recipe-detail',compact('time'));
   }
 
   /**
