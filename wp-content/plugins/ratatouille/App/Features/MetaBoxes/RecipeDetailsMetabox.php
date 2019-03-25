@@ -29,6 +29,26 @@ class RecipeDetailsMetabox
   {
     // Je fais appel à ma function view($path) dans la quelle je rempli le paramètre avec le nom du fichier et son dossier parent, avant on avait    include(RAT_VIEW_DIR .'metaboxes/recipe-detail.html.php');
     view('metaboxes/recipe-detail');
+  }
 
+  /**
+   * sauvegarde des données de la metabox
+   *
+   * @param [type] $post_id reçu par le do_action
+   * @return void
+   */
+
+  //$post_id est remplie par l'id du post contenu dans l'url de la page
+  public static function save($post_id)
+  {
+    // On verifie que $_POST ne soit pas vide pour effectuer l'action uniquement à la sauvegarde du post Type
+    // $_POST est une variable globale php qui contient les données qu'on envoi via un formulaire,notre page recette n'est en soit qu'un formulaire avec des inputs et des textarea qu'on rempli et ce qu'on dit en soit c'est :
+    // Si notre $_POST est différent de vide alors on execute les lignes suivantes
+    if (count($_POST) != 0) {
+      // On stock dans une variable la valeur de l'input dont le name est 'rat_time_preparation'
+      $time_preparation = $_POST['rat_time_preparation'];      
+      // https://developer.wordpress.org/reference/functions/update_post_meta/
+      update_post_meta($post_id, 'rat_time_preparation', $time_preparation);
+    }
   }
 } 
