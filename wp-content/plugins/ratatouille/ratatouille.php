@@ -1,9 +1,4 @@
 <?php
-// On use ici un namespace (celui qu'on créer ligne 2 dans autoload.php), l'avantage de cette écriture là c'est qu'on créer un 'ALIAS' avec la commande 'as' ce qui fait qu'a la ligne 24 on peut simplement écrire RecipePostType::class, pour l'exemple j'ai précisé que l'alias était RecipePostType mais a vrai dir c'est nécéssaire que si on modifie le nom de la class si on veut garder un Alias qui porte le meme nom que la class il ne faut pas le préciser si on écrivait :
-// use App\Features\PostTypes\RecipePostType cela reviendrait au même un créer automatiqement un alias du même nom si on ne le précise pas.
-use App\Features\PostTypes\RecipePostType as RecipePostType;
-use App\Features\Taxonomies\RecipeTaxonomy;
-use App\Features\MetaBoxes\RecipeDetailsMetabox;
 /**
  * Plugin Name:     Ratatouille
  * Plugin URI:      PLUGIN SITE HERE
@@ -18,19 +13,8 @@ use App\Features\MetaBoxes\RecipeDetailsMetabox;
  */
 
 // Your code starts here.
-// on require_once le fichier autload.php qui lui fera un require_once pour toutes les class qui ont besoin d'être chargées.
+
 require_once('autoload.php');
-// J'inclus le fichier env
-require_once('env.php');
-// J'inclus le fichier helpers.php
-require_once('helpers.php');
 
-add_action('init',[RecipePostType::class, 'register']);
-
-add_action('init', [RecipeTaxonomy::class, 'register']);
-
-add_action('add_meta_boxes_recipe', [RecipeDetailsMetabox::class, 'add_meta_box']); 
-
-// On finit par lancer la function save quand le hook save_post_$slug est appelé
-// https://developer.wordpress.org/reference/hooks/save_post_post-post_type/
-add_action('save_post_' . RecipePostType::$slug, [RecipeDetailsMetabox::class, 'save']);
+// J'inclus le fichier bootstrap qui lui contient tous les require_once,le but est de structurer nos fichiers,nos dossier et de faire les appels de manière structurés dans les bons fichiers en se basant sur la structure et le fonctionnement de Laravel pour que vous ayez déjà une première approche avec la structure de Laravel.
+require_once('bootstrap.php');
