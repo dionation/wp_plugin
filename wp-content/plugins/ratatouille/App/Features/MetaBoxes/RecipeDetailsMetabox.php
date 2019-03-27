@@ -28,10 +28,10 @@ class RecipeDetailsMetabox
   public static function render()
   {
     $data = get_post_meta(get_the_ID());
-    $time = extract_data_attr('rat_time_preparation',$data);
+    $time = extract_data_attr('time_preparation',$data);
 
     // Création d'une variable contenant la valeur qu'on a été chercher dans la base de donné grâce à get_post_meta(get_the_ID()) et qu'on assaini via le helper extract_data_attr()
-    $nbr_personne = extract_data_attr('rat_nbr_personne',$data);
+    $nbr_personne = extract_data_attr('nbr_personne',$data);
 
     // on rajout dans compact la seconde variable pour l'envoyer dans la view recipe-detail
     view('metaboxes/recipe-detail',compact('time','nbr_personne'));
@@ -47,12 +47,15 @@ class RecipeDetailsMetabox
   public static function save($post_id)
   {    
     if (count($_POST) != 0) {
-      $time_preparation = sanitize_text_field($_POST['rat_time_preparation']);   
-      update_post_meta($post_id, 'rat_time_preparation', $time_preparation);
+      // Je créer un tableau dans le quel je stock les données récupéré par ma requete aux quelles j'assigne des clefs 
+      $data = [
+        // Clefs         =>          // name du champ pour récupérer la valeur
+        'time_preparation' => sanitize_text_field($_POST['rat_time_preparation']),
+        'nbr_personne' => sanitize_text_field($_POST['rat_nbr_personne']),
+      ];
 
-      // on assaini la valeur récupérée par la requête et on l'envoi dans la base de donnée.
-      $nbr_personne = sanitize_text_field($_POST['rat_nbr_personne']);
-      update_post_meta($post_id,'rat_nbr_personne', $nbr_personne);
+      // J'utilise le helper update_post_metas que j'ai créer dans le fichier helpers.php ligne 36,je passe deux variables, $post_id qui contient l'id du post, et $data qui contient un tableau de données récupéré
+      update_post_metas($post_id,$data);
     }
   }
 } 
