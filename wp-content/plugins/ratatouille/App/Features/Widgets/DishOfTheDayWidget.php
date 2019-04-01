@@ -42,7 +42,8 @@ class DishOfTheDayWidget extends \WP_Widget
     // On Créer deux variables dans les quelles ont attribue les valeurs de notre tableau $instance et on le fait de manière secure en escapant les attribut et le html.
     $title = !empty($instance['title']) ? esc_attr($instance['title']) : '';
     $text = !empty($instance['text']) ? esc_html($instance['text']) : '';
-    view('widgets/dish-of-day-form',compact('title_name', 'text_name'));
+    // On passe les variables à notre vue pour pouvoir les affichées dans les inputs/textarea et connaitre donc l'ancienne valeur si elle existe avant de la modifier.
+    view('widgets/dish-of-day-form',compact('title_name', 'text_name','title','text'));
   }
 
   // On utilise la methode update qui attend 2 paramètres qui vont être automatiquement rempli par la class WP_Widget, le premier paramètre va contenir les données entrées dans le formulaire, et le second paramètre les anciennes données qui avaient été enregistrer grâce à ce formulaire.
