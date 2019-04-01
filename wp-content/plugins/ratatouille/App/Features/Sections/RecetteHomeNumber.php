@@ -22,6 +22,6 @@ class RecetteHomeNumber
    */
   public static function render()
   {
-    echo 'Ceci est ma première section';
+    view('sections/recette-home-number');
   }
 }
