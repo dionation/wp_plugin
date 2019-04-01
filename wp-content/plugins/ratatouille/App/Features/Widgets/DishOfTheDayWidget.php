@@ -29,7 +29,7 @@ class DishOfTheDayWidget extends \WP_Widget
   public function widget($args, $instance)
   {
     // on include la vue dish-of-day-widget qui va être affichée dans le widget plat du jour dans le frontend
-    view('widgets/dish-of-day-widget',compact('instance'));
+    view('widgets/dish-of-day-widget',compact('args','instance'));
   }
   
   // On fait appel à la methode 'form' qui vient de la class WP_Widget pour rendre un visuel dans le backoffice,allez dans votre backoffice -> Appearence -> Widgets et vous trouvez parmis tous les widgets, un widget qui s'appel 'Plat du jour' glissez le dans votre emplacement Footer,cliquez sur la petite fleche et voyez ce que vous trouverez comme texte

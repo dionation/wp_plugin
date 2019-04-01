@@ -1,7 +1,8 @@
+<?= $args['before_widget'] ?>
 <div class="widget-wrapper">
 <!-- On utilise les variables passées par le compact de notre method widget() ligne 32 dans DishOfTheDayWidget.php, on utilise ça sous condition qu'elle existe pour ne pas avoir d'erreur,si on essaie d'affiché le contenu d'une variable alors qu'elle est vide il va nous donné une erreur -->
   <?php if (!empty($instance['title'])) : ?>
-  <h4> <?php echo $instance['title']; ?></h4>
+  <?php echo $args['before_title'] .  $instance['title'] . $args['after_title'] ?>
   <?php endif; ?>
 
 
@@ -18,3 +19,4 @@
   </div>
 
 </div>
+<?= $args['after_widget'] ?>
