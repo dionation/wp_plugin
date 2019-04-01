@@ -49,9 +49,9 @@ class RecipeDetailsMetabox
     if (count($_POST) != 0) {
       // Je créer un tableau dans le quel je stock les données récupéré par ma requete aux quelles j'assigne des clefs 
       $data = [
-        // Clefs         =>          // name du champ pour récupérer la valeur
-        'time_preparation' => sanitize_text_field($_POST['rat_time_preparation']),
-        'nbr_personne' => sanitize_text_field($_POST['rat_nbr_personne']),
+        // On utilise le helper post_data pour passer la clef et la super global $_POST
+        'time_preparation' => post_data('rat_time_preparation',$_POST),
+        'nbr_personne' => post_data('rat_nbr_personne',$_POST),
       ];
 
       // J'utilise le helper update_post_metas que j'ai créer dans le fichier helpers.php ligne 36,je passe deux variables, $post_id qui contient l'id du post, et $data qui contient un tableau de données récupéré
