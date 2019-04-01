@@ -38,7 +38,10 @@ class DishOfTheDayWidget extends \WP_Widget
     // On créer deux variables et pour chacune de ces variables on génère un name dont on va se servir dans notre formulaire ( fichier dish-of-day-form.html.php ligne 3 et 6)
     $title_name = self::get_field_name('title');
     $text_name = self::get_field_name('text');
-    // On compact les deux variables pour pouvoir nous en servir dans le fichier en question ligne 3 et 6, il est interessent de faire un clique droit sur le formulaire et de regarder dans l'attribut name, le name qui a été généré par la function.
+    // On récupère automatiquement toutes les données de notre widget via la method form,notre class WP_Widget inject les valeurs dans notre paramètre $instance.
+    // On Créer deux variables dans les quelles ont attribue les valeurs de notre tableau $instance et on le fait de manière secure en escapant les attribut et le html.
+    $title = !empty($instance['title']) ? esc_attr($instance['title']) : '';
+    $text = !empty($instance['text']) ? esc_html($instance['text']) : '';
     view('widgets/dish-of-day-form',compact('title_name', 'text_name'));
   }
 
