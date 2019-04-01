@@ -46,13 +46,10 @@ class DishOfTheDayWidget extends \WP_Widget
   public function update($new_instance, $old_instance){
     // On créer une variable de type Array
     $instance = [];
-
-    // la variable new_instance a récupérée les données du formulaire,on va restructuré ça en leur attribuant des clefs personnalisé, $new_isntance['title'] pour récupérer la valeur de notre formulaire dont le name et title et la meme chose dans la ligne en dessous pour le champ dont le name est text. Ce qui nous donne un tableau instance qui vaudra : 
-      // aray(2)
-        // 'title' : 'valeurDuTitleDuFormulaire',
-        // 'text' : 'ValeurTextDuFormulaire',
-    $instance['title'] = $new_instance['title'];
-    $instance['text'] = $new_instance['text'];
+    // Avant de stocker les données dans le tableau on fait un peu de securité en utilisant la method strip_tags()
+    // https://www.php.net/manual/fr/function.strip-tags.php
+    $instance['title'] = (!empty($new_instance['title'])) ? strip_tags($new_instance['title']) : '';
+    $instance['text'] = (!empty($new_instance['text'])) ? strip_tags($new_instance['text']) : '';
     // On return le tableau qui sera récupéré par notre method form ligne 36 automatique.
     return $instance;
   }
