@@ -35,7 +35,11 @@ class DishOfTheDayWidget extends \WP_Widget
   // On fait appel à la methode 'form' qui vient de la class WP_Widget pour rendre un visuel dans le backoffice,allez dans votre backoffice -> Appearence -> Widgets et vous trouvez parmis tous les widgets, un widget qui s'appel 'Plat du jour' glissez le dans votre emplacement Footer,cliquez sur la petite fleche et voyez ce que vous trouverez comme texte
   public function form($instance)
   {
-    // on include la vue dish-of-day-form qui va être affiché dans le widget plat du jour dans le backoffice
-    view('widgets/dish-of-day-form');
+    // On créer deux variables et pour chacune de ces variables on génère un name dont on va se servir dans notre formulaire ( fichier dish-of-day-form.html.php ligne 3 et 6)
+    $title_name = self::get_field_name('title');
+    $text_name = self::get_field_name('text');
+    // On compact les deux variables pour pouvoir nous en servir dans le fichier en question ligne 3 et 6, il est interessent de faire un clique droit sur le formulaire et de regarder dans l'attribut name, le name qui a été généré par la function.
+    view('widgets/dish-of-day-form',compact('title_name', 'text_name'));
   }
+
 }
