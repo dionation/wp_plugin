@@ -34,7 +34,12 @@ class RecetteHomeNumber
    */
   public static function render()
   {
-    view('sections/recette-home-number');
+    // On récupère les données personnalisées de notre section dans la BDD avec la function get_option
+    // https://developer.wordpress.org/reference/functions/get_option/
+    // Lisez la description dans la documentation officiel.
+    $nbr_recette_home = get_option('recette_home_number');
+    // Je compact ma variable pour la rendre accessible dans ma view.
+    view('sections/recette-home-number',compact('nbr_recette_home'));
   }
   
 }
