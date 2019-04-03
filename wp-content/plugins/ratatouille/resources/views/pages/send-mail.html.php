@@ -4,7 +4,10 @@
     <!-- nous utilisons la fonction get_admin_page_title() pour récupérer le titre de la page admin que l'on a défini lors de l'enregistrement -->
     <h1><?= get_admin_page_title(); ?></h1>
     <p>Ce formulaire vous permet de contacter vos clients pour leur réservation.</p>
-    <form action="<?= get_admin_url() . '/?action=send-mail'; ?>" method="post">
+    <form action="<?= get_admin_url() . '?action=send-mail'; ?>" method="post">
+    <!-- Cette fonction créer des inputs cachés qui contiennent des informations qui vont nous permetre de savoir si le formulaire est authentique et si il est bien executé via notre site web et pas via une autre source. -->
+    <?php wp_nonce_field('send-mail'); ?>
+
         <table class="form-table">
             <tr>
                 <th>e-mail</th>
