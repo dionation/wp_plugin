@@ -37,7 +37,8 @@ class SendMail
     $name = sanitize_text_field($_POST['name']);
     $firstname = sanitize_text_field($_POST['firstname']);
     $message = sanitize_textarea_field($_POST['message']);
-
+    // on créer un 5ème paramètre que l'on va passer a notre function wp_mail,il nous permet d'interpeté le contenu de notre message(le contenu de template-mail.html.php)
+    $header='Content-Type: text/html; charset=UTF-8';
     // Ob_start début de la session de temporisation du contenu,cela permet de séquencer le travail(de compresser le contenu) et ainsi rendre le travail plus efficace pour la machine donc plus rapide de traité les données qui seront décompréssé par la suite à la demande du client(quand il s'en sert) C'est un peu comme si vous téléchargié un dossier en format zip/rar qui ferait 500mo car il est compréssé et une fois que vous devez l'utilisez vous le décompressé et en réalité il fait 1Giga de poids.Vous l'avez obtenu beaucoup plus vite que si vous deviez télécharger 1Giga.
     // https://www.php.net/manual/fr/function.ob-start.php
     ob_start();
@@ -46,8 +47,8 @@ class SendMail
     // retourne le contenu qu'on stock dans une variable et une fois que c'est fait il ferme la session
     $mail=ob_get_clean();
 
-    // on change $message par $mail cela veut dire qu'on envoi plus message dans le contenu du mail mais ce qui est retourné par $mail c'est à dire le contenu de notre page template-mail.html.php
-    wp_mail($email, 'Pour ' . $name . ' ' . $firstname, $mail);
+    // on rajout $header en 5ème paramètre
+    wp_mail($email, 'Pour ' . $name . ' ' . $firstname, $mail,$header);
     // la fonction wp_safe_redirect redirige vers une url. La fonction wp_get_referer renvoi vers la page d'ou la requête a été envoyé.
     wp_safe_redirect(wp_get_referer());
   }
