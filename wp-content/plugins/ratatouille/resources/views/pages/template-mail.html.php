@@ -29,10 +29,10 @@
 <body>
   <section class="container">
     <h1>
-      Je suis dans le template.
+      Bonjour <?= $name . ' ' . $firstname ?>
     </h1>
     <p>
-      Voici mon message en dur.
+      <?= $message ?>
     </p>
   </section>
 </body>

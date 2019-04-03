@@ -43,7 +43,7 @@ class SendMail
     // https://www.php.net/manual/fr/function.ob-start.php
     ob_start();
     // on y instaure le contenu qui est en fait le contenu d'une page qu'on appel avec notre helper view
-    view('pages/template-mail');
+    view('pages/template-mail',compact('name','firstname','message'));
     // retourne le contenu qu'on stock dans une variable et une fois que c'est fait il ferme la session
     $mail=ob_get_clean();
 
