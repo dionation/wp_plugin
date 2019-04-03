@@ -29,4 +29,17 @@ class SendMail
   {
     view('pages/send-mail');
   }
+
+  public static function send_mail()
+  {
+    // Nous récupérons les données envoyé par le formulaire qui se retrouve dans la variable $_POST
+    $email = $_POST['email'];
+    $name = $_POST['name'];
+    $firstname = $_POST['firstname'];
+    $message = $_POST['message'];
+    // la fonction wordpress pour envoyer des mails https://developer.wordpress.org/reference/functions/wp_mail/
+    wp_mail($email, 'Pour ' . $name . ' ' . $firstname, $message);
+    // la fonction wp_safe_redirect redirige vers une url. La fonction wp_get_referer renvoi vers la page d'ou la requête a été envoyé.
+    wp_safe_redirect(wp_get_referer());
+  }
 }
