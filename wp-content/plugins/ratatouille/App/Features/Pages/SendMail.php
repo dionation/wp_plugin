@@ -1,5 +1,8 @@
 <?php
 namespace App\Features\Pages;
+// on use la class Request pour pouvoir nous en servir plus bas,ligne 44.
+use App\Http\Requests\Request;
+
 class SendMail
 {
   /**
@@ -36,6 +39,16 @@ class SendMail
     if (!wp_verify_nonce($_POST['_wpnonce'], 'send-mail')) {
       return;
     };
+
+    // Maintenant à chaque fois qu'il y a une tenative réussie ou ratée d'envoi de mail, on lance la methode 'validation' de la class Request et on rempli son paramètre avec un tableau de clef et de valeur. On fait en sorte que le nom des clefs correspondent aux names des inputs du formulaire.
+    Request::validation([
+      'name' => 'required',
+      'email' => 'email',
+      'firstname' => 'required',
+      'message' => 'required'
+    ]);
+
+
     // Nous récupérons les données envoyé par le formulaire qui se retrouve dans la variable $_POST
     $email = sanitize_email($_POST['email']);
     $name = sanitize_text_field($_POST['name']);
