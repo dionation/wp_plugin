@@ -4,8 +4,8 @@ namespace App\Http\Requests;
 
 class Request{
 
-  // On créer une variable de type array.Pour le moment on n'en fait rien.
-  private static $error = array();
+  // Petite correction notre variable est renomée de error à errors
+  private static $errors = array();
 
   // On créer une function du nom de validation qui attend un paramètre de type array.Ce paramètre va être rempli via le fichier SendMail.php ligne 44.  
   public static function validation(array $data){
@@ -14,6 +14,23 @@ class Request{
   foreach ($data as $input_name => $verification) {
     // on lance la function de la class, 'email' ou 'required' selon ce que vaut $verification et on rempli le paramètre de la function avec $input_name
     call_user_func([self::class, $verification], $input_name);
+  }
+
+  // On vérifie que $errors contient quelque chose,si c'est le cas alors on récupère tous les messages d'erreurs qu'on y a stocké on fait un foreach dessus pour réecrire chaque ligne qu'on stock dans une variable $message 
+  if (count(self::$errors) != 0) {
+    $message = "";
+    foreach (self::$errors as $key => $value) {
+      $message .= $value . '<br>';
+    }
+    // On rempli notre $_SESSION avec toutes nos erreurs réecrite pour que l'affichage soit mieux présenté
+    $_SESSION['notice'] = [
+      'status' => 'error',
+      'message' => $message
+    ];
+    // on retourne sur notre page
+    wp_safe_redirect(wp_get_referer());
+    // Permet d'arreter le script tant qu'il y a des erreurs à partir de la ligne 44 de notre fichier SendMail.php
+    exit; 
   }
   
   }
