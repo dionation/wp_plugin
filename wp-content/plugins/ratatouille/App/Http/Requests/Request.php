@@ -18,12 +18,18 @@ class Request{
   
   }
 
-  public static function required(string $input){
-
+  // La methode 'validation' à redistribué via son foreach dans l'une ou l'autre methode (required,email) selon ce que vaut '$verification' tout en remplissant notre paramètre $input_name ci dessous par la valeur $input_name rempli ligne 16 ci dessus.
+  public static function required(string $input_name){
+    if ($_POST[$input_name] == "") {
+      // on rempli notre tableau $error avec nos erreurs qu'on écrit ci dessous
+      self::$errors[$input_name] = sprintf(__('Le champ %s est obligatoire'), $input_name);
+    }
   }
 
-  public static function email(string $input){
-    
+  public static function email(string $input_name){
+    if (!is_email($_POST[$input_name])) {
+      self::$errors[$input_name] = sprintf(__('Le champ %s doit être un format email'), $input_name);
+    }
   }
 
 }
