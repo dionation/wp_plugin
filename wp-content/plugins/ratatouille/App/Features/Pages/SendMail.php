@@ -30,7 +30,7 @@ class SendMail
    */
   public static function render()
   {
-    // Si $_SESSION['old'] existe alors on déclare une variable $old dans la quelle on stock son contenu puis on vide notre global
+    // Si $_SESSION['old'] existe alors on déclare une variable $old dans la quelle on stock son contenu puis on detruit notre global $_SESSION['old']
     if (isset($_SESSION['old'])) {
       $old = $_SESSION['old'];
       unset($_SESSION['old']);
