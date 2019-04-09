@@ -28,8 +28,8 @@ class SendMail
    */
   public static function render()
   {
-    // On fait appel a la function all venant de la class Mail et on compact son contenu dans notre view
-    $mails = Mail::all();
+    // on va chercher toute les entrés de la table dont le model mail s'occupe et on inverse l'ordre afin d'avoir le plus récent en premier.
+    $mails = array_reverse(Mail::all());
     // Si $_SESSION['old'] existe alors on déclare une variable $old dans la quelle on stock son contenu puis on detruit notre global $_SESSION['old']
     if (isset($_SESSION['old'])) {
       $old = $_SESSION['old'];
