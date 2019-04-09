@@ -42,11 +42,14 @@
             </form>
         </div>
         <div class="col-sm-6">
+         <!-- on reçois la variable mails(celle qu'on a compact dans la commit précedent) c'est une variable qui contient un tableau contenant chaque mails enregistré dans la Base de donnée(bdd), on va donc faire un foreach et créer une div class postbox pour chaque élément à fin d'avoir un rendu correct. -->
+            <?php foreach ($mails as $mail) : ?>
             <div class="postbox">
                 <div class="inside">
-                    <strong>client : </strong>
+                    <strong>client : </strong><?= $mail->email; ?>
                 </div>
             </div>            
+            <?php endforeach; ?>
         </div>
     </div>
 </div>
