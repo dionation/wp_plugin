@@ -22,6 +22,7 @@
                     </div>
                 </div>
             </div>
+            <a href="<?php menu_page_url('mail-client'); ?>" class="button button-primary">retour</a>
         </div>
     </div>
 </div>
