@@ -54,7 +54,7 @@ class SendMail
     $id = $_GET['id'];
     // on fait appel à notre function find et dans passe en paramètre l'id pour que notre function sache l'émail à aller chercher dans notre BDD
     $mail = Mail::find($id);
-    // on retourn une vue avec le contenu de Mail, cette vue n'est pas encore crée nous allons la crée au prochain commit. Pour l'instant si vous cliquez il essaie d'affiche un fichier qu'il ne trouve pas et vous vous retrouvez donc avec un fond gris.
+    // on retourn une vue avec le contenu de Mail, cette vue n'est pas encore crée nous allons la crée au prochain commit. A présent la vue existe et donc on peut y utiliser la variable mail qu'on compact.
     view('pages/show-mail', compact('mail'));
   }
 
