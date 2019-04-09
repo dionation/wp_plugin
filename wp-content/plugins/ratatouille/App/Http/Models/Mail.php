@@ -53,4 +53,13 @@ class Mail
     $query = "SELECT * FROM $table";
     return $wpdb->get_results($query);
   }
+
+  // On créer une seconde function 'find()' pour faire une requête différente de 'all()' ,find elle ira récupérer dans la base de donnée que les mails dont l'id vaut ce qui est passé dans l'url.
+  public static function find($id)
+  {
+    global $wpdb;
+    $table = self::$table;
+    $query = "SELECT * FROM $table WHERE id = $id";
+    return $wpdb->get_row($query);
+  }
 }
