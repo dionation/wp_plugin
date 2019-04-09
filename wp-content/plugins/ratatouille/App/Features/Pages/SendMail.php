@@ -21,12 +21,16 @@ class SendMail
       26 // la position dans le menu (à comparer avec la valeur deposition des autres liens menu que l'on retrouve dans la doc).
     );
   }
-  /**
-   * Affichage de la page
-   *
-   * @return void
-   */
   public static function render()
+  {
+    /**
+     * on fait un refactoring afin que la méthode render renvoi vers la bonne méthode en fonction de l'action
+     */
+    // on défini une valeur par défaut pour $action qui est index et qui correspondra à la méthode à utiliser(celle qui renvoi la vue avec tous les mails et le formulaire)
+    $action = isset($_GET["action"]) ? $_GET["action"] : "index";
+    call_user_func([self::class, $action]);
+  }
+  public static function index()
   {
     // on va chercher toute les entrés de la table dont le model mail s'occupe et on inverse l'ordre afin d'avoir le plus récent en premier.
     $mails = array_reverse(Mail::all());
@@ -37,6 +41,21 @@ class SendMail
     }
     // on envoi notre variable $old qui contient les anciennes valeurs dans notre view send-mail pour qu'on puisse afficher son contenu dans les champs.
     view('pages/send-mail',compact('old','mails'));
+  }
+    /**
+   * Affiche une entré en particulier
+   *
+   * @return void
+   */
+  // on entre ici car on à cliqué sur le lien 'voir' donc dans notre url on a 'action=show' qui s'est rajouté et notre call_user_func à donc fait appel à show() ici même
+  public static function show()
+  {
+    // Maintenant qu'on est ici on à besoin de savoir quel mail est demandé on va donc dans notre url voir que vaut id= ?? et on le stock dans une variable $id
+    $id = $_GET['id'];
+    // on fait appel à notre function find et dans passe en paramètre l'id pour que notre function sache l'émail à aller chercher dans notre BDD
+    $mail = Mail::find($id);
+    // on retourn une vue avec le contenu de Mail, cette vue n'est pas encore crée nous allons la crée au prochain commit. Pour l'instant si vous cliquez il essaie d'affiche un fichier qu'il ne trouve pas et vous vous retrouvez donc avec un fond gris.
+    view('pages/show-mail', compact('mail'));
   }
 
 }
