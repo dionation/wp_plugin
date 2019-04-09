@@ -89,4 +89,26 @@ class MailController
     // on retourn une vue avec le contenu de Mail, cette vue n'est pas encore crée nous allons la crée au prochain commit. A présent la vue existe et donc on peut y utiliser la variable mail qu'on compact.
     view('pages/show-mail', compact('mail'));
   }
+  // function qui est lancé via le hook admin_action_mail-delete ligne 23 du fichier hooks.php.
+  public static function delete()
+  {
+    // on récupère l'id envoyé via $_POST notre formulaire ligne 29 dans show-mail.html.php
+    $id = $_POST['id'];
+    // si notre function delete($id) est lancée alors on rempli SESSION avec un status et un message positif puis on redirect sur notre page mail-client
+    if (Mail::delete($id)) {
+      $_SESSION['notice'] = [
+        'status' => 'success',
+        'message' => 'Le mail a bien été supprimé'
+      ];
+      wp_safe_redirect(menu_page_url('mail-client'));
+    } 
+    // Si le mail na pas été supprimé on renvoi sur la page avec une notification négative
+    else {
+      $_SESSION['notice'] = [
+        'status' => 'error',
+        'message' => 'un Problème est survenu, veuillez rééssayer'
+      ];
+      wp_safe_redirect(wp_get_referer());
+    }
+  }
 }
