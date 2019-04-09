@@ -17,6 +17,5 @@ add_action('admin_init',[Section::class,'init']);
 add_action('admin_menu',[Page::class,'init']);
 add_action('admin_action_send-mail', [MailController::class, 'send']);
 add_action('admin_init', [Setup::class, 'start_session']);
-// On ajoute la méthode qui va s'executer lors de l'activation du plugin
-// Cette fonction ne s'active que lors de l'activation du plugin https://developer.wordpress.org/reference/functions/register_activation_hook/
 register_activation_hook(__DIR__ . '/ratatouille.php', [Database::class, 'init']);
+add_action('admin_enqueue_scripts', [Setup::class, 'enqueue_scripts']);
