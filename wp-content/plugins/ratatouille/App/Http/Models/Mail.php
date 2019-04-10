@@ -60,7 +60,13 @@ class Mail
     global $wpdb;
     $table = self::$table;
     $query = "SELECT * FROM $table WHERE id = $id";
-    return $wpdb->get_row($query);
+    // nous ajoutons ces lignes afin de ne pas renvoyé un simple objet mais bien un objet Mail
+    $objet = $wpdb->get_row($query);
+    $mail = new Mail();
+    foreach ($objet as $key => $value) {
+      $mail->$key = $value;
+    }
+    return $mail;
   }
   // Function qui va nous permettre de supprimer un mail dans la base de donné,cette function attend un paramètre '$id' que l'on va remplir par la suite quand on va appelé cette function
   public static function delete($id)
