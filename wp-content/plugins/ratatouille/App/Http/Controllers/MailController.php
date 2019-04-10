@@ -111,4 +111,11 @@ class MailController
       wp_safe_redirect(wp_get_referer());
     }
   }
+  // function qui permet d'aller dans le BDD récupérer le mail dont l'id à été envoyé en POST via le link dans l'url
+  public static function edit()
+  {
+    $id = $_GET['id'];
+    $mail = Mail::find($id);
+    view('pages/edit-mail', compact('mail'));
+  }
 }
