@@ -141,8 +141,18 @@ class MailController
     $mail->firstname = sanitize_text_field($_POST['firstname']);
     $mail->email = sanitize_email($_POST['email']);
     $mail->content = sanitize_textarea_field($_POST['content']);
-    // on met à jour dans la base de donnée
-    $mail->update();
+    // on met à jour dans la base de donnée et on renvoi une notification
+    if ($mail->update()) {
+      $_SESSION['notice'] = [
+        'status' => 'success',
+        'message' => 'votre e-mail a bien été modifié'
+      ];
+    } else {
+      $_SESSION['notice'] = [
+        'status' => 'error',
+        'message' => 'Une erreur est survenu, veuillez réessayer plus tard'
+      ];
+    }
     wp_safe_redirect(wp_get_referer());
   }
 }
