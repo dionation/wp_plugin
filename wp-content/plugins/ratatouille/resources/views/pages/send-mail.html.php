@@ -48,7 +48,7 @@
                 <div class="inside">
                     <strong>client : </strong><?= $mail->email; ?>
                     <!-- On rajout ici un lien "voir" ce lien a une action qui est show&id=l'id du mail, si vous cliquez dessus vous pouvez voir que dans votre barre d'url il y a &action=show&id=x qui se rajoute et si vous cliquez sur un autre l'id sera différent. Si on arrive à avoir l'id du mail c'est via la variable $mail qui est une ligne de la variable $mails après un foreach, dans chaque variable $mail il y a beaucoup de donnée propre à chaque email comme son ID,son message,son email,son name et firstname etc.. -->
-                    <a href="<?php menu_page_url('mail-client'); ?>&action=show&id=<?= $mail->id; ?>" class="btn btn-primaty">voir</a>
+                    <a href="<?php menu_page_url('mail-client'); ?>&action=show&id=<?= $mail->id; ?>" class="button-primary">voir</a>
                 </div>
             </div>            
             <?php endforeach; ?>

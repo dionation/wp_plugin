@@ -68,6 +68,16 @@ class Mail
     }
     return $mail;
   }
+  // cette function à été lancée par la function update de MailController et elle permet de mettre à jours les données dans la database, on lui dit quel methode utilisé de la class wpdb on lui demande d'utiliser sa methode update() et on y passe en paramètre la table dans la quelle il doit faire un update en suit on lui passe notre objet(qui contient nos nouvelles données et on fait référence au bon mail dans la base de donnée avec l'id)
+  public function update()
+  {
+    global $wpdb;
+    return $wpdb->update(
+      self::$table,
+      get_object_vars($this),
+      ['id' => $this->id]
+    );
+  }
   // Function qui va nous permettre de supprimer un mail dans la base de donné,cette function attend un paramètre '$id' que l'on va remplir par la suite quand on va appelé cette function
   public static function delete($id)
   {

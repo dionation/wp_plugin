@@ -119,7 +119,30 @@ class MailController
     view('pages/edit-mail', compact('mail'));
   }
 
-  public static function update(){
-    echo '<h1>Nous allons nous servir de cette function pour update nos données avec les nouvelles que nous venons d\'entrer dans notre formulaire edit,la base de donnée sera quel mail elle doit mettre à jours avec ces informations car nous allons récupérer l\'id passé via notre input hidden dans notre global $_POST</h1>';
+  // On récupère les données du formulaire d'update avec une verification du nonce, et les validations. en suit on va chercher toutes les données passé dans $_POST par notre formulaire on y applique un sanitize sur chaque donnée, en suit on lance la function update() qui vient de notre model Mail.php
+  public static function update()
+  {
+    // on vérifie la sécurité pour voir si le formulaire est bien authentique
+    if (!wp_verify_nonce($_POST['_wpnonce'], 'edit-mail')) {
+      return;
+    };
+    // on vérifie les valeurs
+    Request::validation([
+      'lastname' => 'required',
+      'email' => 'email',
+      'firstname' => 'required',
+      'content' => 'required'
+    ]);
+    // on récupère le mail original de la base de donnée
+    $mail = Mail::find($_POST['id']);
+    // On met à jour les nouvelles valeurs
+    $mail->userid = get_current_user_id();
+    $mail->lastname = sanitize_text_field($_POST['lastname']);
+    $mail->firstname = sanitize_text_field($_POST['firstname']);
+    $mail->email = sanitize_email($_POST['email']);
+    $mail->content = sanitize_textarea_field($_POST['content']);
+    // on met à jour dans la base de donnée
+    $mail->update();
+    wp_safe_redirect(wp_get_referer());
   }
 }
