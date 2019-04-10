@@ -118,4 +118,8 @@ class MailController
     $mail = Mail::find($id);
     view('pages/edit-mail', compact('mail'));
   }
+
+  public static function update(){
+    echo '<h1>Nous allons nous servir de cette function pour update nos données avec les nouvelles que nous venons d\'entrer dans notre formulaire edit,la base de donnée sera quel mail elle doit mettre à jours avec ces informations car nous allons récupérer l\'id passé via notre input hidden dans notre global $_POST</h1>';
+  }
 }

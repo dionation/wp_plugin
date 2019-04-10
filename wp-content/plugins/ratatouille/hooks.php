@@ -21,3 +21,4 @@ register_activation_hook(__DIR__ . '/ratatouille.php', [Database::class, 'init']
 add_action('admin_enqueue_scripts', [Setup::class, 'enqueue_scripts']);
 // Hook personnalisé, c'est la combinaison du hook 'admin_action_' de wordpress avec mail-delete qui est l'action qu'on envoi dans l'url ligne 27 du fichier show-mail-html.php 
 add_action('admin_action_mail-delete', [MailController::class, 'delete']); 
+add_action('admin_action_mail-update', [MailController::class, 'update']);

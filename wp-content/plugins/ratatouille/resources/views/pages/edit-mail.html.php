@@ -9,6 +9,10 @@
             <div class="postbox">
                 <div class="inside">
                     <form action="<?php get_site_url(); ?>?action=mail-update" method="post">
+                    <!-- On rajout un nonce qui nous servira à vérifier que le formulaire est authentique -->
+                    <?php wp_nonce_field('edit-mail'); ?>
+                    <!-- On ajout un input contenant l'id du mail qu'on récupérera dans $_POST pour savoir quel email mettre à jours dans la BDD -->
+                    <input type="hidden" name="id" value="<?= $mail->id; ?>">
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="email" class="form-control" id="email" name="email" value="<?= $mail->email; ?>">
