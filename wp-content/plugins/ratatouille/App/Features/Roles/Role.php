@@ -39,5 +39,18 @@ class Role
       __('Assistant e-mail'),
       $assistant_capabilities
     );
+    // après avoir ajouter deux rôles, nous ajoutons ces mêmes permissions au role admin pour s'assurer qu'il ait accès à tout
+    // Rappel si vous voulez faire un reset de tout les roles pour revenir à la configuration de base, utiliser wp-cli
+    // wp role reset --all | n'oubliez pas également d'utiliser wp role pour checker les roles 
+    // https://developer.wordpress.org/cli/commands/role/
+    $role_admin = get_role('administrator');
+    foreach ($manager_capabilities as $cap => $grant) {
+      $role_admin->add_cap($cap, $grant);
+    }
+    // nous allons aussi ajouter les capacités d'assistant au role editor afin de pouvoir facilement créer un compte editor et faire des tests avec
+    $role_admin = get_role('editor');
+    foreach ($assistant_capabilities as $cap => $grant) {
+      $role_admin->add_cap($cap, $grant);
+    }
   }
 }
