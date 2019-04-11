@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Request;
 use App\Http\Models\Mail;
-
+use App\Http\Middlewares\CheckPermission;
 class MailController
 {
   public static function send()
   {
+    // Vérification des permissions
+    CheckPermission::check('create_email');
     // on vérifie la sécurité pour voir si le formulaire est bien authentique,que le formulaire envoyé est bien celui de notre page
     if (!wp_verify_nonce($_POST['_wpnonce'], 'send-mail')) {
       return;
@@ -64,6 +66,8 @@ class MailController
   }
   public static function index()
   {
+    // Vérification des permissions
+    CheckPermission::check('read_email');
     // on va chercher toute les entrés de la table dont le model mail s'occupe et on inverse l'ordre afin d'avoir le plus récent en premier.
     $mails = array_reverse(Mail::all());
     // Si $_SESSION['old'] existe alors on déclare une variable $old dans la quelle on stock son contenu puis on detruit notre global $_SESSION['old']
@@ -82,6 +86,8 @@ class MailController
   // on entre ici car on à cliqué sur le lien 'voir' donc dans notre url on a 'action=show' qui s'est rajouté et notre call_user_func à donc fait appel à show() ici même
   public static function show()
   {
+    // Vérification des permissions
+    CheckPermission::check('show_email');
     // Maintenant qu'on est ici on à besoin de savoir quel mail est demandé on va donc dans notre url voir que vaut id= ?? et on le stock dans une variable $id
     $id = $_GET['id'];
     // on fait appel à notre function find et dans passe en paramètre l'id pour que notre function sache l'émail à aller chercher dans notre BDD
@@ -92,6 +98,8 @@ class MailController
   // function qui est lancé via le hook admin_action_mail-delete ligne 23 du fichier hooks.php.
   public static function delete()
   {
+    // Vérification des permissions
+    CheckPermission::check('delete_email');
     // on récupère l'id envoyé via $_POST notre formulaire ligne 29 dans show-mail.html.php
     $id = $_POST['id'];
     // si notre function delete($id) est lancée alors on rempli SESSION avec un status et un message positif puis on redirect sur notre page mail-client
@@ -114,6 +122,8 @@ class MailController
   // function qui permet d'aller dans le BDD récupérer le mail dont l'id à été envoyé en POST via le link dans l'url
   public static function edit()
   {
+    // Vérification des permissions
+    CheckPermission::check('edit_email');
     $id = $_GET['id'];
     $mail = Mail::find($id);
     view('pages/edit-mail', compact('mail'));
@@ -122,6 +132,8 @@ class MailController
   // On récupère les données du formulaire d'update avec une verification du nonce, et les validations. en suit on va chercher toutes les données passé dans $_POST par notre formulaire on y applique un sanitize sur chaque donnée, en suit on lance la function update() qui vient de notre model Mail.php
   public static function update()
   {
+    // Vérification des permissions
+    CheckPermission::check('edit_email');
     // on vérifie la sécurité pour voir si le formulaire est bien authentique
     if (!wp_verify_nonce($_POST['_wpnonce'], 'edit-mail')) {
       return;
