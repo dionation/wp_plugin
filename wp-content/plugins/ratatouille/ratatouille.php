@@ -19,4 +19,19 @@ require_once('autoload.php');
 require_once('bootstrap.php');
 
 
+// On créer des variables avec des functions wordpress le but et que vous analysiez chaque lignes pour voir ce que valent les variables.
 
+// wp_roles https://developer.wordpress.org/reference/functions/wp_roles/
+// Je retrouve dans $lesRoles la liste des roles prédéfinie par wordpress wp_roles nous donne un objet avec des propriétés tel que : roles, role_objects, roles_names etc
+$lesRoles = wp_roles();// mettez votre point d'arret sur cette ligne et avancé avec la fleche en arc pour voir son contenu
+// J'entre plus profondément dans la propriété roles et donc je le fait grâce à la fleche et je stock ce que cela contient dans une variable pour l'observer. Je vois que j'ai un tableau avec deux éléments qui sont name et capabilities.
+$lesRolesProfondeur = wp_roles()->roles;
+// La je fais en sorte de n'avoir que la clef administrator et j'obtient donc qu'une seule ligne
+$leRoleAdministrator= wp_roles()->roles['administrator'];
+// La j'utilise une autre function de wordpress qui m'évite de devoir écrire wp_roles()->roles['administrator']; pour avoir la ligne administrator et qui est get_role('leNameDuRole')
+$leRoleAdministratorSecondFacon= get_role('administrator');
+// On doit également se pencher sur la liste des capabilities, on peut voir que dans la liste de 'administrator' qu'il y a 61 capabilities je pense que c'est le total qu'il en existe pas d'autre
+$adminCapabilities = get_role('administrator')->capabilities;
+// Par contre si l'on regarde les capabilities de editor il y en a que 34
+$editorCapabilities = get_role('editor')->capabilities;
+$variableVide =''; 
