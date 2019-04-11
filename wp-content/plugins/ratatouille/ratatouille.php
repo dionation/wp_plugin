@@ -34,4 +34,20 @@ $leRoleAdministratorSecondFacon= get_role('administrator');
 $adminCapabilities = get_role('administrator')->capabilities;
 // Par contre si l'on regarde les capabilities de editor il y en a que 34
 $editorCapabilities = get_role('editor')->capabilities;
+
+// On va maintenant voir comment rajouter ou retirer des capabilities 
+// https://developer.wordpress.org/reference/classes/wp_roles/
+// Si on regarde le class wp_roles on peut voir qu'il y a des methods 'add_cap' et 'remove_cap'
+// Tout dabord on doit cibler un role.
+
+$editor=get_role('editor');
+// Je regarde maintenant dans la liste des capabilities de l'editor et je vais supprimer les capabilities 'moderate_comments','upload_files' et 'edit_posts'
+$editor->remove_cap('moderate_comments');
+$editor->remove_cap('upload_files');
+$editor->remove_cap('edit_posts');
+// observez à nouveau et vous pouvez voir qu'elles n'y sont plus
+
+// Maintenant nous allons choisir parmis les autres capabilities,pour ça j'ai regardé dans la liste de l'administrator une capabilitie que 'editor' n'avait pas et je lui ai rajouté. Vous pouvez décommenté la ligne ci-dessous et verifier.
+// $editor->add_cap('switch_themes');
 $variableVide =''; 
+
