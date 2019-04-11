@@ -42,13 +42,15 @@
             </form>
         </div>
         <div class="col-sm-6">
-         <!-- on reçois la variable mails(celle qu'on a compact dans la commit précedent) c'est une variable qui contient un tableau contenant chaque mails enregistré dans la Base de donnée(bdd), on va donc faire un foreach et créer une div class postbox pour chaque élément à fin d'avoir un rendu correct. -->
             <?php foreach ($mails as $mail) : ?>
             <div class="postbox">
                 <div class="inside">
                     <strong>client : </strong><?= $mail->email; ?>
-                    <!-- On rajout ici un lien "voir" ce lien a une action qui est show&id=l'id du mail, si vous cliquez dessus vous pouvez voir que dans votre barre d'url il y a &action=show&id=x qui se rajoute et si vous cliquez sur un autre l'id sera différent. Si on arrive à avoir l'id du mail c'est via la variable $mail qui est une ligne de la variable $mails après un foreach, dans chaque variable $mail il y a beaucoup de donnée propre à chaque email comme son ID,son message,son email,son name et firstname etc.. -->
+                    <!-- On entour notre bouton 'voir' de ce qu'on appel un 'Gate' c'est une façon de cacher un élément si on à pas la permission,la page que rendais le bouton 'voir' est toujours accessible si on connait l'url mais le bouton lui est maintenant caché -->
+                    <!-- A vous de changer le mot "permission" dans notre function curent_user_can par la permission 'show_email' et de voir la différence -->
+                    <?php if (current_user_can('permission')) : ?>
                     <a href="<?php menu_page_url('mail-client'); ?>&action=show&id=<?= $mail->id; ?>" class="button-primary">voir</a>
+                    <?php endif; ?>
                 </div>
             </div>            
             <?php endforeach; ?>
