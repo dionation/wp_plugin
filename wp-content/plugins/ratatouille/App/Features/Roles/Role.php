@@ -25,5 +25,19 @@ class Role
       "read_email" => true,
       "show_email" => true,
     ];
+
+        // Fonction wordpress qui ajout un role s'il n'existe pas.
+    //https://developer.wordpress.org/reference/functions/add_role/
+    add_role(
+      "email-manager", // slug du role
+      __('Manager des e-mail'), // nom affiché
+      // un tableau avec les permissions attaché au roles (capabilities)
+      $manager_capabilities
+    );
+    add_role(
+      "email-assistant",
+      __('Assistant e-mail'),
+      $assistant_capabilities
+    );
   }
 }
