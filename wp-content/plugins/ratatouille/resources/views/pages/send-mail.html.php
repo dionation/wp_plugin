@@ -48,7 +48,7 @@
                     <strong>client : </strong><?= $mail->email; ?>
                     <!-- On entour notre bouton 'voir' de ce qu'on appel un 'Gate' c'est une façon de cacher un élément si on à pas la permission,la page que rendais le bouton 'voir' est toujours accessible si on connait l'url mais le bouton lui est maintenant caché -->
                     <!-- A vous de changer le mot "permission" dans notre function curent_user_can par la permission 'show_email' et de voir la différence -->
-                    <?php if (current_user_can('permission')) : ?>
+                    <?php if (current_user_can('show_email')) : ?>
                     <a href="<?php menu_page_url('mail-client'); ?>&action=show&id=<?= $mail->id; ?>" class="button-primary">voir</a>
                     <?php endif; ?>
                 </div>

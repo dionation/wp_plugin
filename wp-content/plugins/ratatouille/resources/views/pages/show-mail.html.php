@@ -23,14 +23,16 @@
                 </div>
             </div>
             <a href="<?php menu_page_url('mail-client'); ?>" class="button button-primary">retour</a>
-            <!-- Link qui va nous rediriger sur une autre page ou dans l'url il y aura "&action=edit&id=x via la function render() dans SendMail.php on va lancer la function edit de MailController.php-->
+            <!-- Pareil que dans le commit précédent on cache les boutons 'editer' et 'supprimer' pour que tout le monde ne puisse pas editer ou supprimer a sa guise mais que les personnes ayant les permissions,pour vous en tant qu'admin vous ne verrez pas de différence je vous conseil de changer la valeur dans current_user_can avec une valeur fictive pour tester et voir une différence. -->
+            <?php if (current_user_can('edit_email')) : ?>
             <a href="<?php menu_page_url('mail-client'); ?>&action=edit&id=<?= $mail->id; ?>" class="button bg-warning text-white">editer</a>
-            <!-- On rajout ici un formulaire qui ne contient qu'un bouton ainsi qu'un input mais caché (hidden) on le cache car ce n'est pas nécessaire de le voir par contre on va avoir besoin de ce qu'il contient -->
+            <?php endif; ?>
+            <?php if (current_user_can('delete_email')) : ?>
             <form class="form-inline d-inline-block" action="<?php get_site_url(); ?>?action=mail-delete" method="post">
-            <!-- On met un input hidden avec comme valeur l'id du mail en question on fait ça pour en suit récupérer l'id via $_POST['et le NAME qui est ici "id" '] on récupérera ca valeur dans les prochain commit pour l'instant on à uniquement un petit formulaire qui contient l'id du mail et qui nous met une action=delete dans notre url -->
                 <input type="hidden" name="id" value="<?= $mail->id; ?>">
                 <button type="submit" class="button">supprimer</button>
             </form>
+            <?php endif; ?>
         </div>
     </div>
 </div>
